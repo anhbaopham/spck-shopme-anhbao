@@ -1,0 +1,71 @@
+// chờ trang tải xong rồi mới chạy code bên trong
+window.addEventListener("DOMContentLoaded", () => {
+  const registerForm = document.querySelector("#signup-form");
+  console.log(registerForm);
+  //lắng nghe sự kiện submit của form đăng ký
+  registerForm.addEventListener("submit", (e) => {
+    e.preventDefault(); //chặn sự kiện submit mặc định của form (chặn reload)
+    let email = e.target.email.value;
+    let password = e.target.password.value;
+    let repassword = e.target.rePassword.value;
+    console.log(email, password, repassword);
+
+    //regex chữ hoa
+    const uppercaseRegex = /[A-Z]/;
+    const lowerRegex = /[a-z]/;
+    const numberRegex = /[0-9]/;
+
+    //kiểm tra độ dài mật khẩu
+    if (password.length < 6) {
+      alert("Mật khẩu phải có ít nhất 6 ký tự");
+      return;
+    }
+    //kiểm tra mật khẩu có chứa chữ hoa
+    if (!uppercaseRegex.test(password)) {
+      alert("Mật khẩu phải chứa ít nhất một chữ hoa");
+      return;
+    }
+    //kiểm tra mật khẩu có chứa chữ thường
+    if (!lowerRegex.test(password)) {
+      alert("Mật khẩu phải chứa ít nhất một chữ thường");
+      return;
+    }
+    //kiểm tra mật khẩu có chứa số
+    if (!numberRegex.test(password)) {
+      alert("Mật khẩu phải chứa ít nhất một số");
+      return;
+    }
+    //kiểm tra mật khẩu có khớp không
+    if (password !== repassword) {
+      alert("Mật khẩu không khớp");
+      return;
+    }
+    //lấy ra dữ liệu trong localStorage
+    //chuyển đổi chuỗi JSON thành mảng đối tượng
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    //kiểm tra email đã tồn tại chưa
+    let isEmailExist = users.some((user) => user.email === email);
+    if (isEmailExist) {
+      Swal.fire({
+        icon: "error",
+        title: "Nè!",
+        text: "Email bị trùng!",
+      });
+      return;
+    }
+    //thêm người dùng mới vào mảng
+    users.push({ email, password });
+    // lưu mảng người dùng trở lại localStorage dưới dạng chuỗi JSON
+    localStorage.setItem("users", JSON.stringify(users));
+    // nếu tất cả điều kiện đều đúng thì đăng ký thành công
+    Swal.fire({
+      title: "Đăng ký thành công",
+      text: "Đang chuyển hướng đến trang đăng nhập...",
+      icon: "success",
+      //nếu bấm vô nút OK thì chuyển hướng đến trang đăng nhập
+      willClose: () => {
+        window.location.href = "signin.html";
+      },
+    });
+  });
+});
