@@ -80,62 +80,19 @@
         </ul>
       </div>
     </div>
-    <div class="main flex container justify-start">
-      <div
-        class="card lg:card-side bg-base-100 shadow-2xl mt-10 ml-80 p-10 pr-10"
-      >
-        <figure class="w-100 flex-shrink-0">
-          <img
-            src="https://lapvip.vn/upload/products/thumb_350x0/samsung-galaxy-book-5-pro-1741429081.png"
-            alt="Laptop"
-            class="w-full object-contain"
-          />
-        </figure>
-        <!-- Nôi dung -->
-        <div class="card-body flex flex-col max-w-xl justify-between">
-          <h2 class="card-title">
-            Samsung Galaxy Book 5 Pro
-            <div class="badge badge-secondary">NEW</div>
-          </h2>
-          <p>Core Ultra 7 - 256V, RAM 16GB, SSD 1TB, 16-inch 3K (No.4309).</p>
-          <div class="mb-10">
-            <li class="">CPU: Intel Core i7-1355U (upto 5.0 GHz, 12 MB)</li>
-            <li class="">RAM: 8GB DDR4-3200MHz (8GBx1)</li>
-            <li class="">Ổ cứng: 256GB PCIe® NVMe™ M.2 SSD</li>
+    <div class="container mx-auto mt-10">
+      <div class="card bg-base-100 shadow-2xl p-10">
+        <div class="flex gap-10">
+          <!-- CỘT TRÁI: HÌNH -->
+          <div class="w-1/2 flex justify-center">
+            <img class="product-image max-w-sm object-contain" />
           </div>
-          <h3>
-            <h2 class="font-bold text-red-600 text-2xl">
-              <del class="text-gray-500 font-light"> 22.990.000 đ</del>
-              17.990.000 đ
-            </h2>
-            Dịch vụ bảo hành (tùy chọn)
-            <a
-              href="https://www.anphatpc.com.vn/bao-hanh-mo-uu-dai-rong.html"
-              class="text-red-500 font-bold"
-              >Xem chi tiết</a
-            >
-          </h3>
-          <div class="ml-10">
-            <fieldset
-              class="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4"
-            >
-              <legend class="fieldset-legend"></legend>
-              <label class="label">
-                <input type="checkbox" class="checkbox" />
-                Gói bảo hành 1 đổi 1 (BHMR0114) (+659.000 ₫)
-              </label>
-              <label class="label">
-                <input type="checkbox" class="checkbox" />
-                Gói bảo hành 2 năm (BHMR0214) (+1.199.000 ₫)
-              </label>
-              <label class="label">
-                <input type="checkbox" class="checkbox" />
-                Gói bảo hành 3 năm (BHMR0314) (+1.799.000 ₫)
-              </label>
-            </fieldset>
-          </div>
-          <div class="card-actions flex justify-end ml-10">
-            <button class="btn btn-primary">Buy</button>
+
+          <!-- CỘT PHẢI: THÔNG TIN -->
+          <div class="w-1/2 space-y-4">
+            <h2 class="card-title text-2xl"></h2>
+            <p class="product-desc"></p>
+            <h2 class="product-price text-red-600 text-2xl font-bold"></h2>
           </div>
         </div>
       </div>
@@ -201,6 +158,7 @@
           </a>
         </div>
       </nav>
+      <script src="../js/detail.js"></script>
     </footer>
   </body>
 </html>

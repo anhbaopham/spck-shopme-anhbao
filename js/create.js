@@ -21,6 +21,15 @@ btnCreate.addEventListener("click", (e) => {
       text: "Vui lòng nhập đầy đủ thông tin!",
       icon: "question",
     });
+    return;
+  }
+  if (isNaN(price) || Number(price) <= 0) {
+    Swal.fire({
+      title: "Lỗi!",
+      text: "Giá sản phẩm phải là số và dương",
+      icon: "error",
+    });
+    return;
   } else {
     Swal.fire({
       position: "top-end",
@@ -28,9 +37,10 @@ btnCreate.addEventListener("click", (e) => {
       title: "Your work has been saved",
       showConfirmButton: false,
       timer: 1500,
+      willClose: () => {
+        window.location.href = "index.html";
+      },
     });
-
-    return;
   }
 
   // Tạo sản phẩm laptop

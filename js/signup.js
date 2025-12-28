@@ -17,27 +17,46 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //kiểm tra độ dài mật khẩu
     if (password.length < 6) {
-      alert("Mật khẩu phải có ít nhất 6 ký tự");
+      Swal.fire({
+        title: "Có gì đó sai sai...",
+        text: "Mật khẩu phải có ít nhất 6 ký tự",
+        icon: "question",
+      });
       return;
     }
     //kiểm tra mật khẩu có chứa chữ hoa
     if (!uppercaseRegex.test(password)) {
-      alert("Mật khẩu phải chứa ít nhất một chữ hoa");
-      return;
+      Swal.fire({
+        title: "Có gì đó sai sai...",
+        text: "Mật khẩu phải chứa ít nhất một chữ hoa",
+        icon: "question",
+      });
     }
     //kiểm tra mật khẩu có chứa chữ thường
     if (!lowerRegex.test(password)) {
-      alert("Mật khẩu phải chứa ít nhất một chữ thường");
+      Swal.fire({
+        title: "Có gì đó sai sai...",
+        text: "Mật khẩu phải chứa ít nhất một chữ thường",
+        icon: "question",
+      });
       return;
     }
     //kiểm tra mật khẩu có chứa số
     if (!numberRegex.test(password)) {
-      alert("Mật khẩu phải chứa ít nhất một số");
+      Swal.fire({
+        title: "Có gì đó sai sai...",
+        text: "Mật khẩu phải chứa ít nhất một số",
+        icon: "question",
+      });
       return;
     }
     //kiểm tra mật khẩu có khớp không
     if (password !== repassword) {
-      alert("Mật khẩu không khớp");
+      Swal.fire({
+        title: "Có gì đó sai sai...",
+        text: "Mật khẩu không khớp",
+        icon: "question",
+      });
       return;
     }
     //lấy ra dữ liệu trong localStorage
@@ -48,7 +67,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (isEmailExist) {
       Swal.fire({
         icon: "error",
-        title: "Nè!",
+        title: "Email?",
         text: "Email bị trùng!",
       });
       return;
