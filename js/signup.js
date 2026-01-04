@@ -15,6 +15,16 @@ window.addEventListener("DOMContentLoaded", () => {
     const lowerRegex = /[a-z]/;
     const numberRegex = /[0-9]/;
 
+    if (!email.includes("@gmail.com")) {
+      Swal.fire({
+        title: "Có gì đó sai sai...",
+        text: "Định dạng email không đúng",
+        icon: "question",
+        footer:
+          '<p href="#">Định dạng là <strong>gmail.com</strong> và không có <strong>kí tự đặc biệt</strong></p>',
+      });
+      return;
+    }
     //kiểm tra độ dài mật khẩu
     if (password.length < 6) {
       Swal.fire({
@@ -31,6 +41,7 @@ window.addEventListener("DOMContentLoaded", () => {
         text: "Mật khẩu phải chứa ít nhất một chữ hoa",
         icon: "question",
       });
+      return;
     }
     //kiểm tra mật khẩu có chứa chữ thường
     if (!lowerRegex.test(password)) {

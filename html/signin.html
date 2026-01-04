@@ -69,16 +69,47 @@
         </a>
       </div>
     </div>
-    <section class="bg-purple-900">
+    <section class="relative min-h-screen">
+      <div class="absolute inset-0 -z-10">
+        <img
+          src="https://i.pinimg.com/736x/93/e4/48/93e448d08277d1d2cac0ff91888ffdda.jpg"
+          class="w-full h-full object-cover"
+          alt=""
+        />
+      </div>
+      <div class="absolute inset-0 bg-black/40 -z-10"></div>
+
       <div class="px-0 py-20 mx-auto max-w-7xl sm:px-4">
+        <div
+          id="check-user"
+          class="hidden w-full px-4 pt-5 pb-6 mx-auto mt-8 mb-6 bg-white rounded-none shadow-xl sm:rounded-lg sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 sm:px-6"
+        >
+          <h1 class="mb-4 text-lg font-semibold text-center text-gray-900">
+            You are already logged in! Do you want...?
+          </h1>
+          <div class="flex justify-center gap-4">
+            <a
+              href="./index.html"
+              id="btn-logout"
+              class="btn btn-error flex self-center"
+              >Log out</a
+            >
+            <a href="./index.html" class="btn btn-success flex self-center"
+              >Go back</a
+            >
+            <a href="./signup.html" class="btn btn-info flex self-center"
+              >Create an account</a
+            >
+          </div>
+        </div>
         <form
           id="login-form"
-          class="w-full px-4 pt-5 pb-6 mx-auto mt-8 mb-6 bg-white rounded-none shadow-xl sm:rounded-lg sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 sm:px-6"
+          class="hidden w-full px-4 pt-5 pb-6 mx-auto mt-8 mb-6 bg-white rounded-none shadow-xl sm:rounded-lg sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 sm:px-6"
         >
           <h1 class="mb-4 text-lg font-semibold text-left text-gray-900">
             Log in to your account
           </h1>
-          <form class="mb-8 space-y-4">
+          <div class="mb-8 space-y-4">
             <label class="block">
               <span class="block mb-1 text-xs font-medium text-gray-700"
                 >Your Email</span
@@ -110,7 +141,7 @@
               class="w-full py-3 mt-1 btn btn-primary"
               value="Login"
             />
-          </form>
+          </div>
           <div class="space-y-8">
             <div
               class="text-center border-b border-gray-200"
@@ -156,9 +187,9 @@
             </div>
           </div>
         </form>
-        <p class="mb-4 text-xs text-center text-gray-400">
+        <p class="mb-10 text-center text-sm font-medium text-gray-400">
           <a
-            href="signup.html"
+            href="./signup.html"
             class="text-purple-200 underline hover:text-white"
             >Create an account</a
           >
@@ -175,6 +206,7 @@
     </section>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/signin.js"></script>
+    <script src="../js/check-login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </body>
 </html>
