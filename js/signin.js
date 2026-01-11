@@ -30,7 +30,11 @@ window.addEventListener("DOMContentLoaded", () => {
       return;
     }
     //tạo người dùng mới
-    let newUser = { email: userExists.email, password: userExists.password };
+    let newUser = {
+      email: userExists.email,
+      password: userExists.password,
+      plan: userExists.plan,
+    };
     // lưu người dùng hiện tại vào localStorage
     localStorage.setItem("currentUser", JSON.stringify(newUser));
     Swal.fire({

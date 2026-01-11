@@ -63,21 +63,41 @@ if (basicsub && prosup && enterprisub) {
         text: "Vui lòng đăng nhập để tiếp tục!",
       });
       prosup.addEventListener("click", () => {
-        alert("Vui lòng đăng nhập để tiếp tục!");
-      });
-      enterprisub.addEventListener("click", () => {
-        alert("Vui lòng đăng nhập để tiếp tục!");
+        Swal.fire({
+          icon: "error",
+          title: "Không tìm thấy sản phẩm",
+          text: "Vui lòng đăng nhập để tiếp tục!",
+        });
+        enterprisub.addEventListener("click", () => {
+          Swal.fire({
+            icon: "error",
+            title: "Không tìm thấy sản phẩm",
+            text: "Vui lòng đăng nhập để tiếp tục!",
+          });
+        });
       });
     });
   } else {
     basicsub.addEventListener("click", () => {
-      alert("Bạn đã đăng ký gói Basic thành công!");
+      Swal.fire({
+        title: "Bạn đã đăng ký gói Basic thành công!",
+        icon: "success",
+        text: "✅",
+      });
     });
     prosup.addEventListener("click", () => {
-      alert("Bạn đã đăng ký gói Pro thành công!");
+      Swal.fire({
+        title: "Bạn đã đăng ký gói Pro thành công!",
+        icon: "success",
+        text: "✅",
+      });
     });
     enterprisub.addEventListener("click", () => {
-      alert("Bạn đã đăng ký gói Enterprise thành công!");
+      Swal.fire({
+        title: "Bạn đã đăng ký gói Enterprise thành công!",
+        icon: "success",
+        text: "✅",
+      });
     });
   }
 }
