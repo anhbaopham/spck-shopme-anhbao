@@ -83,10 +83,18 @@ window.addEventListener("DOMContentLoaded", () => {
       });
       return;
     }
+
+    const newUser = {
+      id: Date.now(),
+      email,
+      password,
+      plan: "free",
+    };
     //thêm người dùng mới vào mảng
-    users.push({ email, password });
+    users.push(newUser);
     // lưu mảng người dùng trở lại localStorage dưới dạng chuỗi JSON
     localStorage.setItem("users", JSON.stringify(users));
+
     // nếu tất cả điều kiện đều đúng thì đăng ký thành công
     Swal.fire({
       title: "Đăng ký thành công",

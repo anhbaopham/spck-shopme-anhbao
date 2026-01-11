@@ -1,6 +1,5 @@
 const productList = document.getElementById("product-list");
 const searchBar = document.getElementById("search-bar");
-
 // Dữ liệu sản phẩm
 let productS = [
   {
@@ -289,7 +288,15 @@ let productS = [
       "https://cdn.dummyjson.com/product-images/laptops/new-dell-xps-13-9300-laptop/thumbnail.webp",
   },
 ];
-localStorage.setItem("products", JSON.stringify(productS));
+
+const getProductsFromStorage = JSON.parse(localStorage.getItem("products"));
+if (getProductsFromStorage && getProductsFromStorage.length > 0) {
+  productS = getProductsFromStorage;
+  console.log("không chạy cau lenh duoi");
+} else {
+  localStorage.setItem("products", JSON.stringify(productS));
+  console.log("load product tư localstorage");
+}
 
 // Render sản phẩm
 function renderProducts(list) {

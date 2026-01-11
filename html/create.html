@@ -33,28 +33,9 @@
     <a href="premium.html"
       ><button
         title="Nâng cấp ngay!"
-        onmouseover="this.style.boxShadow='0 0 25px gold, 0 0 50px orange'; this.style.transform='scale(1.1)';"
-        onmouseout="this.style.boxShadow='0 0 15px rgba(255,215,0,0.6)'; this.style.transform='scale(1)';"
-        style="
-          position: fixed;
-          bottom: 20px;
-          left: 20px; /* Chuyển từ right sang left */
-          z-index: 999;
-          padding: 14px 28px;
-          font-size: 16px;
-          font-weight: bold;
-          color: white;
-          background: linear-gradient(45deg, gold, orange);
-          background-size: 200% 200%;
-          border: none;
-          border-radius: 30px;
-          box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-          cursor: pointer;
-          transition: all 0.3s ease;
-          transform: scale(1);
-        "
+        class="block btn btn-warning scale-130 hover:scale-150 transition-transform duration-300 fixed bottom-5 left-9 z-50"
       >
-        🌟 Premium
+        Premium
       </button></a
     >
     <!-- Chevron-up -->
@@ -181,6 +162,14 @@
           placeholder="Mô tả sản phẩm"
           required
         />
+        <label class="label">Kho</label>
+        <input
+          id="stockLaptop"
+          type="text"
+          class="input"
+          placeholder="Số lượng sản phẩm"
+          required
+        />
 
         <label class="label">Giá</label>
         <input
@@ -194,9 +183,6 @@
       </fieldset>
     </div>
     <hr />
-
-    <div id="product-list"></div>
-    <!-- Card -->
 
     <footer
       class="footer sm:footer-horizontal bg-base-300 text-base-content mt-10 p-10 bg-black text-white"

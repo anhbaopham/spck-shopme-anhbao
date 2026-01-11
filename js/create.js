@@ -2,93 +2,114 @@ const nameInput = document.querySelector("#nameLaptop");
 const imageInput = document.querySelector("#imageLaptop");
 const descInput = document.querySelector("#descriptionLaptop");
 const priceInput = document.querySelector("#priceLaptop");
+const stockInput = document.querySelector("#stockLaptop");
 const btnCreate = document.querySelector("#btnCreate");
-const productList = document.querySelector("#product-list");
 
-// Lấy danh sách cũ từ localStorage (nếu có)
+const productList = document.querySelector("#product-list");
+const searchBar = document.getElementById("search-bar");
+
+const sampleProducts = [
+  {
+    id: 1,
+    title: "Macbook Pro 14",
+    description: "Laptop Apple hiệu năng cao",
+    price: 1999,
+    stock: 10,
+    thumbnail:
+      "https://cdn.tgdd.vn/Products/Images/44/303169/apple-macbook.jpg",
+  },
+  {
+    id: 2,
+    title: "Asus Zenbook",
+    description: "Laptop mỏng nhẹ",
+    price: 1499,
+    stock: 20,
+    thumbnail: "https://cdn.tgdd.vn/Products/Images/44/309016/asus.jpg",
+  },
+];
+
+// CHỈ set khi CHƯA có dữ liệu
+if (!localStorage.getItem("products")) {
+  localStorage.setItem("products", JSON.stringify(sampleProducts));
+}
+//
+
 let products = JSON.parse(localStorage.getItem("products")) || [];
 
-// Hàm render sản phẩm (nếu có danh sách hiển thị tại trang create)
-function renderProducts() {
+//
+function renderProducts(list) {
   if (!productList) return;
 
   productList.innerHTML = "";
-  products.forEach((item) => {
+
+  list.forEach((p) => {
     productList.innerHTML += `
-      <div class="card bg-base-100 shadow-md mb-4">
+      <div class="card bg-base-100 shadow-md">
+        <figure class="p-4">
+          <img src="${p.thumbnail}" class="h-40 object-contain">
+        </figure>
         <div class="card-body">
-          <h2 class="card-title">${item.name}</h2>
-          <p>${item.desc}</p>
-          <p class="text-red-500 font-bold">${item.price.toLocaleString()} đ</p>
+          <h2 class="card-title text-sm">${p.title}</h2>
+          <p>${p.description}</p>
+          <p class="font-bold text-red-500">$${p.price}</p>
+          <p>Kho: ${p.stock}</p>
         </div>
       </div>
     `;
   });
 }
 
-btnCreate.addEventListener("click", (e) => {
-  e.preventDefault();
-  const name = nameInput.value.trim();
-  const desc = descInput.value.trim();
-  const price = priceInput.value;
-  const image = imageInput.value.trim();
+renderProducts(products);
 
-  // Kiểm tra dữ liệu
-  if (!name || !desc || !price || !image) {
-    Swal.fire({
-      title: "Thiếu rồi nha!",
-      text: "Vui lòng nhập đầy đủ thông tin!",
-      icon: "question",
-    });
-    return;
-  }
+/* =====================
+  5. TẠO SẢN PHẨM
+===================== */
+if (btnCreate) {
+  btnCreate.addEventListener("click", (e) => {
+    e.preventDefault();
 
-  if (isNaN(price) || Number(price) <= 0) {
-    Swal.fire({
-      title: "Lỗi!",
-      text: "Giá sản phẩm phải là số và dương",
-      icon: "error",
-    });
-    return;
-  }
+    const name = nameInput.value.trim();
+    const desc = descInput.value.trim();
+    const price = priceInput.value.trim();
+    const image = imageInput.value.trim();
+    const stock = stockInput.value.trim();
 
-  // Tạo sản phẩm laptop
-  const laptop = {
-    id: Date.now(),
-    title: name,
-    description: desc,
-    thumbnail: image,
-    price: Number(price),
-  };
+    if (!name || !desc || !price || !image || !stock) {
+      alert("Vui lòng nhập đầy đủ thông tin");
+      return;
+    }
 
-  // Thêm vào mảng và lưu vào localStorage
-  products.push(laptop);
-  localStorage.setItem("products", JSON.stringify(products));
+    if (isNaN(price) || price <= 0 || isNaN(stock) || stock < 0) {
+      alert("Giá hoặc số lượng không hợp lệ");
+      return;
+    }
 
-  // Hiển thị thông báo thành công
-  Swal.fire({
-    position: "top-end",
-    icon: "success",
-    title: "Sản phẩm đã được thêm!",
-    showConfirmButton: false,
-    timer: 1500,
-    willClose: () => {
-      // Clear input
-      nameInput.value = "";
-      descInput.value = "";
-      priceInput.value = "";
-      imageInput.value = "";
+    const newProduct = {
+      id: Date.now(),
+      title: name,
+      description: desc,
+      price: Number(price),
+      stock: Number(stock),
+      thumbnail: image,
+    };
 
-      // Render lại danh sách (nếu có)
-      renderProducts();
+    products.push(newProduct);
+    console.log(newProduct);
+    localStorage.setItem("products", JSON.stringify(products));
 
-      // Chuyển về trang chủ
-      window.location.href = "index.html";
-    },
+    window.location.href = "index.html";
   });
-});
+}
 
-// Render danh sách khi trang được tải (nếu có)
-if (productList) {
-  renderProducts();
+// search
+if (searchBar) {
+  searchBar.addEventListener("input", () => {
+    const keyword = searchBar.value.toLowerCase();
+
+    const result = products.filter((p) =>
+      p.title.toLowerCase().includes(keyword)
+    );
+
+    renderProducts(result);
+  });
 }

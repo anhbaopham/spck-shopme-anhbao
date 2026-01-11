@@ -44,3 +44,19 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+const users = JSON.parse(localStorage.getItem("users")) || [];
+
+function login(email, password) {
+  const user = users.find((u) => u.email === email && u.password === password);
+
+  if (!user) {
+    alert("Sai tài khoản hoặc mật khẩu");
+    return;
+  }
+
+  // nếu user chưa có plan thì gán free
+  if (!user.plan) user.plan = "free";
+
+  localStorage.setItem("currentUser", JSON.stringify(user));
+  location.href = "index.html";
+}

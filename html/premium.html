@@ -65,24 +65,47 @@
           />Shopme
         </a>
       </div>
-      <div class="flex-none">
-        <ul class="menu menu-horizontal px-1">
-          <li>
-            <details>
-              <summary>Laptop</summary>
-              <ul class="bg-base-100 rounded-t-none p-2">
-                <li><a>Asus</a></li>
-                <li><a>Acer</a></li>
-              </ul>
-            </details>
-          </li>
-        </ul>
-      </div>
     </div>
     <!--  -->
     <div
-      class="flex flex-col md:flex-row items-center justify-center gap-10 mt-10"
+      class="flex flex-col md:flex-row items-center justify-center gap-7 mt-10"
     >
+      <!-- Free -->
+      <div
+        class="card w-full max-w-sm bg-base-100 shadow-md border border-gray-300"
+      >
+        <div class="card-body">
+          <span class="badge badge-xs badge-neutral">Free</span>
+
+          <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold">Free</h2>
+            <span class="text-xl font-semibold">$0</span>
+          </div>
+
+          <p class="text-sm text-gray-500">
+            Dùng miễn phí cho người mới bắt đầu
+          </p>
+
+          <ul class="mt-4 flex flex-col gap-2 text-sm">
+            <li>✅ Xem danh sách laptop</li>
+            <li>✅ Tìm kiếm sản phẩm</li>
+            <li>✅ Xem chi tiết sản phẩm</li>
+            <li>❌ Không ưu đãi độc quyền</li>
+            <li>❌ Không bảo hành mở rộng</li>
+          </ul>
+
+          <div class="mt-6">
+            <button
+              data-plan="free"
+              id="free-subscribe"
+              class="btn btn-outline btn-primary btn-block"
+            >
+              Đang sử dụng
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Basic -->
       <div class="card w-full max-w-sm bg-base-100 shadow-md">
         <div class="card-body">
@@ -100,6 +123,7 @@
           </ul>
           <div class="mt-6">
             <button
+              data-plan="basic"
               id="basic-subscribe"
               class="btn btn-outline btn-primary btn-block"
             >
@@ -128,7 +152,11 @@
             <li>❌ No team collaboration tools</li>
           </ul>
           <div class="mt-6">
-            <button id="pro-subscribe" class="btn btn-primary btn-block">
+            <button
+              id="pro-subscribe"
+              data-plan="pro"
+              class="btn btn-primary btn-block"
+            >
               Subscribe Now
             </button>
           </div>
@@ -153,6 +181,7 @@
           </ul>
           <div class="mt-6">
             <button
+              data-plan="enterprise"
               id="enterprise-subscribe"
               class="btn btn-outline btn-primary btn-block"
             >
@@ -228,8 +257,12 @@
         </div>
       </nav>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/premium.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <script src="../js/check-login.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/products.js"></script>
   </body>
 </html>
