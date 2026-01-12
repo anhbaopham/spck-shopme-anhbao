@@ -1,15 +1,19 @@
 // chờ trang tải xong rồi mới chạy code bên trong
 window.addEventListener("DOMContentLoaded", () => {
-  const registerForm = document.querySelector("#login-form");
-  console.log(registerForm);
-  //lắng nghe sự kiện submit của form đăng ký
-  registerForm.addEventListener("submit", (e) => {
+  const loginForm = document.querySelector("#login-form");
+  console.log(loginForm);
+  //lắng nghe sự kiện submit của form đăng nhập
+  loginForm.addEventListener("submit", (e) => {
     e.preventDefault(); //chặn sự kiện submit mặc định của form (chặn reload)
     let email = e.target.email.value;
     let password = e.target.password.value;
 
     if (!email || !password) {
-      alert("Vui lòng điền đầy đủ thông tin");
+      Swal.fire({
+        icon: "error",
+        title: "Chít rùi!",
+        text: "Vui lòng nhập đầy đủ thông tin!",
+      });
       return;
     }
 
@@ -54,12 +58,18 @@ function login(email, password) {
   const user = users.find((u) => u.email === email && u.password === password);
 
   if (!user) {
-    alert("Sai tài khoản hoặc mật khẩu");
+    Swal.fire({
+      icon: "error",
+      title: "Chít rùi!",
+      text: "Mật khẩu hoặc email không đúng!",
+    });
     return;
   }
 
   // nếu user chưa có plan thì gán free
-  if (!user.plan) user.plan = "free";
+  if (!user.plan) {
+    user.plan = "free";
+  }
 
   localStorage.setItem("currentUser", JSON.stringify(user));
   location.href = "index.html";
