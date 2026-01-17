@@ -14,7 +14,8 @@ if (!product) {
   document.querySelector(".card-title").innerText = product.title;
   document.querySelector(".product-desc").innerText = product.description;
   document.querySelector(".product-image").src = product.thumbnail;
-  document.querySelector(".product-price").innerText = document.querySelector(
-    ".product-stock"
-  ).innerText = product.price.toLocaleString() + " đ";
+  document.querySelector(".product-price").innerText =
+    product.price.toLocaleString() + " đ";
+  document.querySelector(".product-stock").innerText =
+    "Còn sẵn: " + product.stock.toLocaleString();
 }

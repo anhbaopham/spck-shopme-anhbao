@@ -35,7 +35,7 @@ function subscribe(plan) {
   Swal.fire({
     icon: "success",
     title: "Thành công",
-    text: `Bạn đang sử dụng gói ${plan.toUpperCase()}`,
+    text: `Bạn đang sử dụng gói ${plan}`,
     willClose: () => {
       location.href = "index.html";
     },
@@ -60,21 +60,19 @@ document
   ?.addEventListener("click", () => subscribe("enterprise"));
 
 // Thông báo và chuyển về trang chủ
+if (!currentUser) {
+  Swal.fire({
+    title: "Vui lòng đăng nhập",
+    text: ` Vui lòng đăng nhập để tiếp tục!`,
+    icon: "error",
+    timer: 2000,
+    showConfirmButton: false,
+    willClose: () => {
+      location.href = "signin.html"; // QUAN TRỌNG: Quay về trang chủ
+    },
+  });
+}
 
-btnBasic?.addEventListener("click", () => {
-  if (!currentUser) {
-    Swal.fire({
-      title: "Vui lòng đăng nhập",
-      text: ` Vui lòng đăng nhập để tiếp tục!`,
-      icon: "error",
-      timer: 2000,
-      showConfirmButton: false,
-      willClose: () => {
-        location.href = "signin.html";
-      },
-    });
-  }
-});
 if (currentUser) {
   Swal.fire({
     title: "Thành công!",
@@ -85,78 +83,102 @@ if (currentUser) {
     },
   });
 }
+// btnBasic?.addEventListener("click", () => {
+//   if (!currentUser) {
+//     Swal.fire({
+//       title: "Vui lòng đăng nhập",
+//       text: ` Vui lòng đăng nhập để tiếp tục!`,
+//       icon: "error",
+//       timer: 2000,
+//       showConfirmButton: false,
+//       willClose: () => {
+//         location.href = "signin.html";
+//       },
+//     });
+//   }
+// });
+// if (currentUser) {
+//   Swal.fire({
+//     title: "Thành công!",
+//     text: `Bạn đã đăng ký gói ${plan}`,
+//     icon: "success",
+//     willClose: () => {
+//       location.href = "index.html";
+//     },
+//   });
+// }
 
-btnPro?.addEventListener("click", () => {
-  if (!currentUser) {
-    Swal.fire({
-      title: "Vui lòng đăng nhập",
-      text: ` Vui lòng đăng nhập để tiếp tục!`,
-      icon: "error",
-      timer: 2000,
-      showConfirmButton: false,
-      willClose: () => {
-        location.href = "signin.html"; // QUAN TRỌNG: Quay về trang chủ
-      },
-    });
-  }
-});
-if (currentUser) {
-  Swal.fire({
-    title: "Thành công!",
-    text: `Bạn đã đăng ký gói ${plan.toUpperCase()}`,
-    icon: "success",
-    willClose: () => {
-      location.href = "index.html";
-    },
-  });
-}
+// btnPro?.addEventListener("click", () => {
+//   if (!currentUser) {
+//     Swal.fire({
+//       title: "Vui lòng đăng nhập",
+//       text: ` Vui lòng đăng nhập để tiếp tục!`,
+//       icon: "error",
+//       timer: 2000,
+//       showConfirmButton: false,
+//       willClose: () => {
+//         location.href = "signin.html"; // QUAN TRỌNG: Quay về trang chủ
+//       },
+//     });
+//   }
+// });
+// if (currentUser) {
+//   Swal.fire({
+//     title: "Thành công!",
+//     text: `Bạn đã đăng ký gói ${plan}`,
+//     icon: "success",
+//     willClose: () => {
+//       location.href = "index.html";
+//     },
+//   });
+// }
 
-btnEnterprise?.addEventListener("click", () => {
-  if (!currentUser) {
-    Swal.fire({
-      title: "Vui lòng đăng nhập",
-      text: ` Vui lòng đăng nhập để tiếp tục!`,
-      icon: "error",
-      timer: 2000,
-      showConfirmButton: false,
-      willClose: () => {
-        location.href = "signin.html"; // QUAN TRỌNG: Quay về trang chủ
-      },
-    });
-  }
-});
-if (currentUser) {
-  Swal.fire({
-    title: "Thành công!",
-    text: `Bạn đã đăng ký gói ${plan.toUpperCase()}`,
-    icon: "success",
-    willClose: () => {
-      location.href = "index.html";
-    },
-  });
-}
+// btnEnterprise?.addEventListener("click", () => {
+//   if (!currentUser) {
+//     Swal.fire({
+//       title: "Vui lòng đăng nhập",
+//       text: ` Vui lòng đăng nhập để tiếp tục!`,
+//       icon: "error",
+//       timer: 2000,
+//       showConfirmButton: false,
+//       willClose: () => {
+//         location.href = "signin.html"; // QUAN TRỌNG: Quay về trang chủ
+//       },
+//     });
+//   }
+// });
+// if (currentUser) {
+//   Swal.fire({
+//     title: "Thành công!",
+//     text: `Bạn đã đăng ký gói ${plan}`,
+//     icon: "success",
+//     willClose: () => {
+//       location.href = "index.html";
+//     },
+//   });
+// }
 
-btnFree?.addEventListener("click", () => {
-  if (!currentUser) {
-    Swal.fire({
-      title: "Vui lòng đăng nhập",
-      text: ` Vui lòng đăng nhập để tiếp tục!`,
-      icon: "error",
-      timer: 2000,
-      showConfirmButton: false,
-      willClose: () => {
-        location.href = "signin.html"; // QUAN TRỌNG: Quay về trang chủ
-      },
-    });
-  }
-});
-if (currentUser) {
-  Swal.fire({
-    title: "Thành công!",
-    text: `Bạn đã đăng ký gói ${plan.toUpperCase()}`,
-    icon: "success",
-    willClose: () => {
-      location.href = "index.html";
-    },
-  });
-}
+// btnFree?.addEventListener("click", () => {
+//   if (!currentUser) {
+//     Swal.fire({
+//       title: "Vui lòng đăng nhập",
+//       text: ` Vui lòng đăng nhập để tiếp tục!`,
+//       icon: "error",
+//       timer: 2000,
+//       showConfirmButton: false,
+//       willClose: () => {
+//         location.href = "signin.html"; // QUAN TRỌNG: Quay về trang chủ
+//       },
+//     });
+//   }
+// });
+// if (currentUser) {
+//   Swal.fire({
+//     title: "Thành công!",
+//     text: `Bạn đã đăng ký gói ${plan.toUpperCase()}`,
+//     icon: "success",
+//     willClose: () => {
+//       location.href = "index.html";
+//     },
+//   });
+// }
