@@ -8,30 +8,30 @@ const btnCreate = document.querySelector("#btnCreate");
 const productList = document.querySelector("#product-list");
 const searchBar = document.getElementById("search-bar");
 
-const sampleProducts = [
-  {
-    id: 1,
-    title: "Macbook Pro 14",
-    description: "Laptop Apple hiệu năng cao",
-    price: 1999,
-    stock: 10,
-    thumbnail:
-      "https://cdn.tgdd.vn/Products/Images/44/303169/apple-macbook.jpg",
-  },
-  {
-    id: 2,
-    title: "Asus Zenbook",
-    description: "Laptop mỏng nhẹ",
-    price: 1499,
-    stock: 20,
-    thumbnail: "https://cdn.tgdd.vn/Products/Images/44/309016/asus.jpg",
-  },
-];
+// const sampleProducts = [
+//   {
+//     id: 1,
+//     title: "Macbook Pro 14",
+//     description: "Laptop Apple hiệu năng cao",
+//     price: 1999,
+//     stock: 10,
+//     thumbnail:
+//       "https://cdn.tgdd.vn/Products/Images/44/303169/apple-macbook.jpg",
+//   },
+//   {
+//     id: 2,
+//     title: "Asus Zenbook",
+//     description: "Laptop mỏng nhẹ",
+//     price: 1499,
+//     stock: 20,
+//     thumbnail: "https://cdn.tgdd.vn/Products/Images/44/309016/asus.jpg",
+//   },
+// ];
 
-// CHỈ set khi CHƯA có dữ liệu
-if (!localStorage.getItem("products")) {
-  localStorage.setItem("products", JSON.stringify(sampleProducts));
-}
+// // chỉ set khi chưa có dữ liệu
+// if (!localStorage.getItem("products")) {
+//   localStorage.setItem("products", JSON.stringify(sampleProducts));
+// }
 //
 
 let products = JSON.parse(localStorage.getItem("products")) || [];
@@ -61,9 +61,7 @@ function renderProducts(list) {
 
 renderProducts(products);
 
-/* =====================
-  5. TẠO SẢN PHẨM
-===================== */
+// tạo sản phẩm mới
 if (btnCreate) {
   btnCreate.addEventListener("click", (e) => {
     e.preventDefault();
@@ -107,7 +105,7 @@ if (searchBar) {
     const keyword = searchBar.value.toLowerCase();
 
     const result = products.filter((p) =>
-      p.title.toLowerCase().includes(keyword)
+      p.title.toLowerCase().includes(keyword),
     );
 
     renderProducts(result);

@@ -12,7 +12,7 @@ if (!product) {
     willClose: () => (location.href = "index.html"),
   });
 } else {
-  document.querySelector(".card-title").innerText = product.title;
+  document.querySelector(".product-title").innerText = product.title;
   document.querySelector(".product-desc").innerText = product.description;
   document.querySelector(".product-image").src = product.thumbnail;
   document.querySelector(".product-price").innerText =
