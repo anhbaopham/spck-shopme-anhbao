@@ -1,120 +1,57 @@
-const btnEdit = document.querySelector("#btnEdit");
-const productList = document.querySelector("#product-list");
-let productData = JSON.parse(localStorage.getItem("products")) || [];
-let isEditMode = false;
-
-// Hàm render sản phẩm với chế độ edit
-function renderProductsWithEdit() {
-  if (!productList) return;
-
-  productList.innerHTML = "";
-  products.forEach((item) => {
-    productList.innerHTML += `
-      <div class="card bg-base-100 shadow-md product-card" data-id="${item.id}">
-        <figure>
-          <img src="${item.image}" alt="${item.name}" />
-        </figure>
-
-        <div class="card-body">
-          <h2 class="card-title">${item.name}</h2>
-          <p>${item.desc}</p>
-          <p class="text-red-500 font-bold">${item.price.toLocaleString()} đ</p>
-
-          <div class="flex gap-2 mt-2">
-            <button 
-              class="btnDelete ${
-                isEditMode ? "" : "hidden"
-              } btn btn-error btn-sm"
-              onclick="deleteProduct(${item.id})"
-            >
-              Xoá
-            </button>
-
-            <button 
-              class="btnDetail ${
-                isEditMode ? "" : "hidden"
-              } btn btn-outline btn-sm"
-              onclick="goDetail(${item.id})"
-            >
-              Chi tiết
-            </button>
-            
-            <button 
-              class="btnEditProduct ${
-                isEditMode ? "" : "hidden"
-              } btn btn-warning btn-sm"
-              onclick="editProduct(${item.id})"
-            >
-              Sửa
-            </button>
-          </div>
-        </div>
-      </div>
-    `;
-  });
-}
-
-// Hàm chuyển đến trang chi tiết
-function goDetail(id) {
-  window.location.href = `detail1.html?id=${id}`;
-}
-
-// Hàm xóa sản phẩm
-function deleteProduct(id) {
+const itemId = JSON.parse(localStorage.getItem("products")) || []; // Lấy mảng sản phẩm từ localStorage
+const params = new URLSearchParams(window.location.search); // lấy tham số từ url
+const id = Number(params.get("id")); // lấy id từ tham số url
+const nameInput = document.getElementById("editTitle");
+const descInput = document.getElementById("editDesc");
+const priceInput = document.getElementById("editPrice");
+const imageInput = document.getElementById("editImg");
+const stockInput = document.getElementById("editStock");
+const btnSaveChanges = document.getElementById("btnSaveChanges");
+// Tìm sản phẩm dựa trên id từ URL
+const productsss = itemId.find((p) => p.id === id); // tìm id sản phẩm cần sửa
+if (!productsss) {
   Swal.fire({
-    title: "Are you sure?",
-    text: "Bạn có chắc là muốn xoá không?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: "Xoá",
-    cancelButtonText: "Huỷ",
-  }).then((result) => {
-    if (!result.isConfirmed) return;
-
-    // Lọc sản phẩm không bị xóa
-    const newProducts = products.filter((item) => item.id !== id);
-
-    // Lưu vào localStorage
-    localStorage.setItem("products", JSON.stringify(newProducts));
-
-    // Cập nhật mảng hiện tại
-    products = newProducts;
-
-    // Render lại
-    renderProductsWithEdit();
-
-    Swal.fire("Đã xoá!", "Sản phẩm đã bị xoá.", "success");
+    icon: "error",
+    title: "Không tìm thấy sản phẩm",
+    willClose: () => (location.href = "index.html"),
   });
+} else {
+  // Điền thông tin sản phẩm vào các trường input
+  nameInput.value = productsss.title;
+  descInput.value = productsss.description;
+  priceInput.value = productsss.price;
+  imageInput.value = productsss.thumbnail;
+  stockInput.value = productsss.stock;
 }
-
-// Hàm chỉnh sửa sản phẩm (chuyển đến trang chỉnh sửa)
-function editProduct(id) {
-  window.location.href = `edit-product.html?id=${id}`;
-}
-
-// Xử lý nút Edit
-if (btnEdit) {
-  btnEdit.addEventListener("click", () => {
-    isEditMode = !isEditMode;
-
-    if (isEditMode) {
-      btnEdit.classList.add("btn-error");
-      btnEdit.textContent = "Đang chỉnh sửa...";
-    } else {
-      btnEdit.classList.remove("btn-error");
-      btnEdit.textContent = "Chỉnh sửa";
-    }
-
-    renderProductsWithEdit();
+btnSaveChanges.addEventListener("click", (e) => {
+  e.preventDefault();
+  const name = nameInput.value.trim();
+  const desc = descInput.value.trim();
+  const price = Number(priceInput.value);
+  const image = imageInput.value.trim();
+  const stock = Number(stockInput.value);
+  if (!name || !desc || !price || !image) {
+    alert("Vui lòng nhập đầy đủ thông tin");
+    return;
+  }
+  if (isNaN(price) || price <= 0 || isNaN(stock) || stock < 0) {
+    alert("Giá hoặc số lượng không hợp lệ");
+    return;
+  }
+  // Cập nhật thông tin sản phẩm
+  productsss.title = name;
+  productsss.description = desc;
+  productsss.price = price.toLocaleString();
+  productsss.thumbnail = image;
+  productsss.stock = stock;
+  // Lưu mảng sản phẩm trở lại localStorage
+  localStorage.setItem("products", JSON.stringify(itemId));
+  Swal.fire({
+    title: "Lưu thay đổi thành công",
+    text: "Đang chuyển hướng đến trang chủ...",
+    icon: "success",
+    willClose: () => {
+      window.location.href = "index.html";
+    },
   });
-}
-
-// Render lần đầu
-if (productList) {
-  renderProductsWithEdit();
-}
-
-// Thêm các hàm vào window để có thể gọi từ HTML
-window.goDetail = goDetail;
-window.deleteProduct = deleteProduct;
-window.editProduct = editProduct;
+});

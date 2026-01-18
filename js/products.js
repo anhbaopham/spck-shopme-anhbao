@@ -1,5 +1,11 @@
 const productList = document.getElementById("product-list");
 const searchBar = document.getElementById("search-bar");
+
+const btnEdit = document.querySelector("#btnEdit");
+
+let products = JSON.parse(localStorage.getItem("products")) || [];
+let isEditMode = false;
+
 // Dữ liệu sản phẩm
 let productS = [
   {
@@ -1082,24 +1088,50 @@ function renderProducts(list) {
 
   list.forEach((product) => {
     productList.innerHTML += `
-      <div class="card bg-base-100 shadow hover:shadow-lg cursor-pointer " onclick="goDetail(${
-        product.id
-      })">
-        <figure class="p-4">
-          <img src="${product.thumbnail}" class="h-40 object-contain">
+      <div class="card bg-base-100 shadow hover:shadow-lg">
+
+        <figure class="p-4 ${!isEditMode ? "cursor-pointer" : ""}"
+          ${!isEditMode ? `onclick="goDetail(${product.id})"` : ""}>
+          <img src="${product.thumbnail}" class="h-40 object-contain" />
         </figure>
-        <div class="card-body">
+
+        <div class="card-body ${!isEditMode ? "cursor-pointer" : ""}"
+          ${!isEditMode ? `onclick="goDetail(${product.id})"` : ""}>
           <h2 class="card-title text-sm">${product.title}</h2>
-          <p class="font-bold text-red-600">${product.price.toLocaleString()} đ</p>
+          <p class="font-bold text-red-600">
+            ${product.price.toLocaleString()} đ
+          </p>
         </div>
-        <div class="card card-footer">
-          <button id="btnBuy" class="btn btn-primary w-full " onclick="window.location.href='detail1.html?id=${
-            product.id
-          }'">
+
+        <div class="grid grid-cols-3  gap-2 px-4 pb-4">
+
+          
+
+          <button
+            class="btn btn-error btn-sm ${isEditMode ? "" : "hidden"}"
+            onclick="deleteProduct(${product.id})">
+            Xoá
+          </button>
+
+          <button
+            class="btn btn-outline btn-sm ${isEditMode ? "" : "hidden"}"
+            onclick="goDetail(${product.id})">
+            Chi tiết
+          </button>
+
+          <button
+            class="btn btn-warning btn-sm ${isEditMode ? "" : "hidden"}"
+            onclick="editProduct(${product.id})">
+            Sửa
+          </button>
+
+        </div>
+        <div class="flex gap-2 px-4 pb-4">
+        <button
+            class="btn btn-primary w-full ${isEditMode ? "hidden" : ""}"
+            onclick="goDetail(${product.id})">
             Mua ngay
           </button>
-          
-        </
       </div>
     `;
   });
@@ -1108,18 +1140,54 @@ function renderProducts(list) {
 function goDetail(id) {
   window.location.href = `detail1.html?id=${id}`;
 }
-// RENDER LẦN ĐẦU
-renderProducts(productS);
 
-// TÌM KIẾM
+function editProduct(id) {
+  window.location.href = `edit.html?id=${id}`;
+}
+
+function deleteProduct(id) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "Bạn có chắc muốn xoá?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Xoá",
+    cancelButtonText: "Huỷ",
+  }).then((result) => {
+    if (!result.isConfirmed) return;
+
+    products = products.filter((item) => item.id !== id); // Xoá sản phẩm khỏi mảng, tìm id khác với id cần xoá
+    localStorage.setItem("products", JSON.stringify(products));
+    renderProducts(products);
+
+    Swal.fire("Đã xoá!", "Sản phẩm đã bị xoá.", "success");
+  });
+}
+
+btnEdit.addEventListener("click", () => {
+  isEditMode = !isEditMode;
+
+  if (isEditMode) {
+    btnEdit.classList.add("btn-error");
+    btnEdit.textContent = "Đang chỉnh sửa...";
+  } else {
+    btnEdit.classList.remove("btn-error");
+    btnEdit.innerHTML = '<i class="fa-regular fa-pen-to-square"></i>';
+  }
+
+  renderProducts(products);
+});
+
 searchBar.addEventListener("input", () => {
   const keyword = searchBar.value.toLowerCase();
-
-  const result = productS.filter((product) =>
-    product.title.toLowerCase().includes(keyword)
+  const result = products.filter((p) =>
+    p.title.toLowerCase().includes(keyword),
   );
-
   renderProducts(result);
 });
-// Xuất hàm goDetail ra global scope để có thể gọi từ HTML
+
+renderProducts(products);
+
 window.goDetail = goDetail;
+window.deleteProduct = deleteProduct;
+window.editProduct = editProduct;
